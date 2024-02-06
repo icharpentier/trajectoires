@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>3Trajectoires et Cycle de Deming</title>
+
+  <!-- Style CSS pour définir l'apparence de la page -->
   <style>
     body { margin: 0; font-family: "Helvetica", sans-serif; background-color: #FFFFFF; }
     canvas { width: 100%; height: 100%; }
@@ -11,20 +13,24 @@
 </head>
 <body>
 
+<!-- slider pour contrôler l'amplitude et la fréquence -->
 <div class="slider">
   <p>Amplitude</p>
   <input type="range" id="amplitudeSlider" min="0" max="1" value="0.4" step="0.01">
   <p id="amplitudeValue">0.4</p>
 </div>
 <div class="slider">
-  <p>Frequency</p>
+  <p>Fréquence</p>
   <input type="range" id="frequencySlider" min="10" max="100" value="50" step="1">
   <p id="frequencyValue">50</p>
 </div>
 
+<!-- Importation des bibliothèques Three.js pour la 3D et GSAP pour les animations -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 <script>
+
+  // Création de la scène, de la caméra, et du rendu
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
   
@@ -32,10 +38,12 @@
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
+  // Variables pour l'amplitude et la fréquence avec des valeurs par défaut
   let amplitude = 0.4;
   let frequency = 50;
   const points = [];
 
+  // Fonction pour générer les points de la ligne en fonction de l'amplitude et de la fréquence
   function generatePoints() {
     points.length = 0;
     for (let i = 0; i < 100; i++) {
@@ -49,16 +57,19 @@
 
   generatePoints();
 
+  // Création de la ligne à partir des point générés et ajout à la scène
   const geometry = new THREE.BufferGeometry().setFromPoints(points);
   const material = new THREE.LineBasicMaterial({ color: 0xffffff });
   const line = new THREE.Line(geometry, material);
   scene.add(line);
 
+  // Ajout des axes d'aide
   const axesHelper = new THREE.AxesHelper(1);
   scene.add(axesHelper);
 
   camera.position.z = 4;
 
+  // Fonction d'animation pour faire tourner la ligne et les axes
   function animate() {
     requestAnimationFrame(animate);
     line.rotation.x += 0.01;
@@ -68,11 +79,12 @@
     renderer.render(scene, camera);
   }
 
+  // Gestion des sliders mettant à jour l'amplitude et la fréquence
   const amplitudeSlider = document.getElementById('amplitudeSlider');
   const frequencySlider = document.getElementById('frequencySlider');
 
   amplitudeSlider.oninput = function() {
-    amplitude = parseFloat(this.value);
+    amplitude = parseFloat(this.value); // parseFloat permet de transformer une chaîne de caractères en un nombre flottant
     document.getElementById('amplitudeValue').innerText = this.value;
     generatePoints();
     line.geometry.setFromPoints(points);
@@ -87,7 +99,8 @@
 
   animate();
 </script>
-  
+
+<!-- Explication du concept de la Roue de Deming -->
 <h4>Roue de Deming <br>
   Lorsque deux variables décrivent des sinusoides déphasées de 90°, la trajectoire du système décrit le mouvement de la roue adaptative proposé par Deming pour illustrer le processus (Plan-Do-Check-Act) d'amélioration continue des procédés industriels. </h4>
 </body>

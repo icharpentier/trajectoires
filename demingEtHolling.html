@@ -1,8 +1,10 @@
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="fr">
     <head>
     <meta charset="UTF-8">
     <title>Fusion : Cycles Sinusoïdaux</title>
+
+    <!-- Style CSS pour définir l'apparence de la page -->
     <style>
         body { margin: 0; font-family: "Helvetica", sans-serif; background-color: #FFFFFF }
         canvas { width: 100%; height: 100% }
@@ -10,9 +12,12 @@
     </head>
     <body>
     
+    <!-- Importation des bibliothèques Three.js pour la 3D et GSAP pour les animations --> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
+
+        // Création de la scène, de la caméra, et du rendu
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
         
@@ -20,44 +25,46 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Cycle Deming
+        // Création du cycle de Deming
         const pointsDeming = [];
-        const rDeming = 0.1;
+        const rDeming = 0.1; // Rayon pour le cycle de Deming
         for (let i = 0; i < 100; i++) {
         pointsDeming.push(new THREE.Vector3((rDeming * Math.cos(i*20*Math.PI/100)), (rDeming * Math.sin(i*20*Math.PI/100)), i/100));
         }
 
         const geometryDeming = new THREE.BufferGeometry().setFromPoints(pointsDeming);
-        const materialDeming = new THREE.LineBasicMaterial({ color: 0xff0000 }); // Rouge
+        const materialDeming = new THREE.LineBasicMaterial({ color: 0xff0000 });
         const lineDeming = new THREE.Line(geometryDeming, materialDeming);
         scene.add(lineDeming);
 
-        // Cycle Holling
+        // Création du cycle de Holling
         const pointsHolling = [];
-        const rHolling = 0.4;
+        const rHolling = 0.4; // Rayon pour le cycle de Holling
         for (let i = 0; i < 100; i++) {
         pointsHolling.push(new THREE.Vector3((rHolling * Math.cos(i*2*Math.PI/50)) + 0.1*(rDeming * Math.cos(i*2*Math.PI/50)) ,(rHolling * Math.sin(i*4*Math.PI/50)) + 0.1*(rDeming * Math.sin(i*2*Math.PI/50)), i/100));
         }
 
+        // Création de la ligne à partir des point générés et ajout à la scène
         const geometryHolling = new THREE.BufferGeometry().setFromPoints(pointsHolling);
-        const materialHolling = new THREE.LineBasicMaterial({ color: 0x0000ff }); // Bleu
+        const materialHolling = new THREE.LineBasicMaterial({ color: 0x0000ff });
         const lineHolling = new THREE.Line(geometryHolling, materialHolling);
         scene.add(lineHolling);
 
+         // Ajout des axes d'aide
         const axesHelper = new THREE.AxesHelper(1);
         scene.add(axesHelper);
 
         camera.position.z = 4;
 
+        // Fonction d'animation pour faire tourner les cycles et les axes
         function animate() {
         requestAnimationFrame(animate);
 
-        // Rotation des lignes
         lineDeming.rotation.x += 0.01;
         lineDeming.rotation.y += 0.005;
 
-        lineHolling.rotation.x += 0.01; // Vous pouvez ajuster ces valeurs pour obtenir l'effet désiré
-        lineHolling.rotation.y += 0.005; // Peut-être différent pour les deux lignes
+        lineHolling.rotation.x += 0.01; 
+        lineHolling.rotation.y += 0.005; 
 
         axesHelper.rotation.x += 0.01;
         axesHelper.rotation.y += 0.005;

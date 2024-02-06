@@ -8,7 +8,7 @@
   <style>
     body { margin: 0; color: #FFFFFF; font-family: "Helvetica", sans-serif;background-color:#FFFFFF}
     canvas { width: 100%; height: 100% }
-    .slider-container { position: absolute; top: 10px; left: 10px; }  
+    .slider-container { position: absolute; top: 10px; left: 10px; }
   </style>
 </head>
 
@@ -34,18 +34,19 @@
     const pointsDeming = [];
     const pointsHolling = [];
     const mixedPoints = [];
-    const rd = 0.04; // Rayon pour Deming
-    const rh = 0.4;  // Rayon pour Holling
-    const numPoints = 100;  // Nombre de points
+    const rmin = 0.001; rmax=0.4; // Rayon pour Holling et Deming avec variation
+    const numPoints = 1000; // Nombre de points
 
-    // Génération des points pour Deming
+     // Génération des points pour Deming
     for (let i = 0; i < numPoints; i++) {
-      pointsDeming.push(new THREE.Vector3((rd * Math.cos(i*20*Math.PI/50)), (rd * Math.sin(i*20*Math.PI/50)), i/100));
+      const r= (1-i/numPoints)*rmax + i/numPoints*rmin; // Calcul du rayon actuel basé sur une interpolation linéaire entre rmin et rmax
+      pointsDeming.push(new THREE.Vector3((r * Math.cos(i*2*Math.PI/50)), (r * Math.sin(i*2*Math.PI/50)), i/numPoints)); // ajout de i/numPoints pour déterminer la coordonnée de z.
     }
 
-    // Génération des points pour Holling
+    // Création des points pour Holling, mais dans un ordre inverse à Deming
     for (let i = 0; i < numPoints; i++) {
-      pointsHolling.push(new THREE.Vector3((rh * Math.cos(i*2*Math.PI/50)), (rh * Math.sin(i*4*Math.PI/50)), i/100));
+      const r= (1-i/numPoints)*rmin + i/numPoints*rmax; // Inversion de l'interpolation pour le rayon, commençant petit et devenant plus grand
+      pointsHolling.push(new THREE.Vector3((r * Math.cos(i*2*Math.PI/50)), (r * Math.sin(i*4*Math.PI/50)), i/numPoints)); 
     }
 
     // Préparation de l'ensemble de points mixtes sans les créer avec des positions spécifique
@@ -69,7 +70,7 @@
     // Fonction pour interpoler entre les points de Deming et Holling en fonction du facteur de mixage
     function interpolatePoints(factor) {
       for (let i = 0; i < numPoints; i++) {
-        mixedPoints[i].lerpVectors(pointsDeming[i], pointsHolling[i], factor); // lerpVectors effectue une interpolation linéaire entre deux vecteurs  
+        mixedPoints[i].lerpVectors(pointsDeming[i], pointsHolling[i], factor); // lerpVectors effectue une interpolation linéaire entre deux vecteurs 
       }
       geometry.setFromPoints(mixedPoints);
     }
@@ -91,9 +92,8 @@
     const mixSlider = document.getElementById('mixSlider');
     const mixValue = document.getElementById('mixValue');
 
-
     mixSlider.addEventListener('input', () => {
-      mixFactor = parseFloat(mixSlider.value); // parseFloat permet de transformer une chaîne de caractères en un nombre flottant.
+      mixFactor = parseFloat(mixSlider.value); // parseFloat permet de transformer une chaîne de caractères en un nombre flottant
       mixValue.textContent = mixFactor.toFixed(2); // limité à deux décimales pour une meilleure lisibilité.
     });
   </script>
