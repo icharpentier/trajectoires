@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <?php include "header.php";?>
+
+    <div class="contenu-Pre">
+        <h1 id="title"></h1>
+        <div id="animation">
+             <!-- slider vitesse -->
+            <div class="slider-speed" id="speedControl">
+                <p>Vitesse</p>
+                <input type="range" id="speedSlider" min="-10" max="10" value="0" step="0.1">
+                
+            </div>
+            <!-- Les sliders seront insérés ici -->
+        </div> 
+        <p id="description"></p>
+
+        <!-- ajout des bibliothèques Three.js et GSAP -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+        <script>
+            function loadPresentationData() {
+                /* Charge les données du json */
+                const presentationData = JSON.parse(sessionStorage.getItem('choixPresentation'));
+
+                if (presentationData && presentationData.description) {
+                    generateDescription(presentationData.description);
+                } else {
+                    console.error("Description manquante");
+                }
+
+                if (presentationData) {
+                    document.title = presentationData.title;
+                    document.getElementById('title').textContent = presentationData.title;  
+
+                    const animationElement = document.getElementById('animation');
+
+                    /* Ajout conditionnel des sliders de paramètres */
+                    if (presentationData.sliders) {
+                        const sliderHtml = `
+                        <div class="slider-Pre">
+                            <div>
+                                <p>Amplitude</p>
+                                <input type="range" id="amplitudeSlider" min="0" max="1" value="0.4" step="0.01">
+                                <p id="amplitudeValue">0.4</p>
+                            </div>
+                            <div>
+                                <p>Fréquence</p>
+                                <input type="range" id="frequencySlider" min="10" max="100" value="50" step="1">
+                                <p id="frequencyValue">50</p>
+                            </div>
+                        </div>
+                        `;
+                        animationElement.insertAdjacentHTML('beforeend', sliderHtml);
+                    }
+
+                    /* Ajout conditionnel d'un slider de morphisme */
+                    if (presentationData.morph) {
+                        const morphSliderHtml = `
+                        <div class="slider-Pre">
+                            <div>
+                                <p>Mixage</p>
+                                <input type="range" id="mixSlider" min="0" max="1" value="0.5" step="0.01">
+                                <p id="mixValue">0.5</p>
+                            </div>
+                        </div>
+                        `;
+                        animationElement.insertAdjacentHTML('beforeend', morphSliderHtml);
+                    }
+
+                    
+                    const scriptElement = document.createElement('script');
+                    scriptElement.src = presentationData.jsFilePath;
+                    scriptElement.onload = () => {
+                        if (typeof window[presentationData.initFunction] === 'function') {
+                            window[presentationData.initFunction]();
+                        } else {
+                            console.error('La fonction est introuvable:', presentationData.initFunction);
+                        }
+                    };
+                    scriptElement.onerror = () => {
+                        console.error('Erreur de chargement du script:', presentationData.jsFilePath);
+                    };
+                    document.body.appendChild(scriptElement);
+                } else {
+                    document.title = "Présentation non trouvée";
+                    document.getElementById('animation').textContent = "Aucune présentation n'a été trouvée.";
+                }
+            }
+
+            /* Fonction pour générer la description */
+            function generateDescription(descriptionElements) {
+        const descriptionContainer = document.getElementById('description');
+        descriptionContainer.innerHTML = ''; // Réinitialise le contenu du conteneur pour s'assurer qu'il est vide avant d'ajouter de nouveaux éléments
+
+        descriptionElements.forEach(element => { // l'instruction switch pour déterminer le type d'élément à créer en fonction de l'objet 'element'
+            let htmlElement; // Variable pour stocker le nouvel élément HTML à créer
+
+            switch(element.type) { // l'instruction switch pour déterminer le type d'élément à créer en fonction de l'objet 'element'
+                case 'text':
+                    htmlElement = document.createElement('p'); // Si l'élément est un texte
+                    htmlElement.textContent = element.content;
+                    break;
+                case 'image':
+                    htmlElement = document.createElement('img'); // Si l'élément est une image
+                    htmlElement.src = element.src;
+                    htmlElement.alt = element.alt;
+                    break;
+                case 'link':
+                    htmlElement = document.createElement('a'); // Si l'élément est un lien
+                    htmlElement.href = element.href;
+                    htmlElement.textContent = element.content;
+                    htmlElement.target = "_blank";
+                    break;
+            }
+
+            if(htmlElement) {
+                descriptionContainer.appendChild(htmlElement); // Si un élément HTML a été créé, l'ajoute au conteneur de description
+            }
+        });
+    }
+
+            document.addEventListener('DOMContentLoaded', loadPresentationData);
+        </script>
+
+    </div>
+    
+    <?php include "footer.php";?>

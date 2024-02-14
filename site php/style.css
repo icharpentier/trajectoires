@@ -1,0 +1,198 @@
+/* Variables */
+:root {
+  --couleur-orange: #fd9550;
+  --couleur-orange-darker: #f77b28;
+  --couleur-vert-secondaire: #AFD6CC;
+  --couleur-gris-clair: #fbfafa;
+  --couleur-gris: #E7E8EA;
+}
+
+/* Général */
+body {
+font-family: Arial, sans-serif; 
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Header */
+.header {
+  font-size: 1.2em;
+  padding: 0 20px;
+  display: flex;
+  background-color: var(--couleur-gris-clair);
+}
+
+.header img {
+  width: 120px;
+}
+
+.header > *{
+  display: flex;
+  align-items: center;
+}
+
+
+.logo-head{
+  margin-left: 4%;
+  justify-content: center;
+}
+
+.header ul{
+  display: flex;
+  list-style: none;
+  text-decoration: none;
+  margin-inline: 2%;
+}
+
+.header ul li a{
+  text-decoration: none   ;
+  color: var(--couleur-orange);
+}
+
+.header ul li a:hover{
+  text-decoration: none   ;
+  color: var(--couleur-orange-darker);
+  text-decoration: underline;
+}
+
+.menu a{
+  margin-inline: 7px;
+}
+
+/* accueil */
+
+.main-accueil{
+  margin-top: 50px;
+}
+
+.visu {
+  align-items: center;
+  box-sizing: border-box;
+  width: 80%;
+  height: 40vh;
+}
+
+.MorphIntro{
+  display: flex;
+  width: 80%;
+  margin: auto;
+  gap: 10px;
+  overflow: hidden;
+}
+
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.NomCourbe{
+  position: absolute;
+  margin-left: 2vh;
+  color: white;
+}
+
+.description{
+  width: 80%;
+  margin: auto;
+}
+.galerie{
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
+  margin-top: 10vh;
+}
+
+.visu-wrap{ 
+  width: 40%;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.morph-menu{
+  display: flex;
+  list-style: none;
+}
+
+.morph-menu a{
+  margin: 2px;
+  text-decoration: none;
+  color: white;
+  background-color: var(--couleur-orange);
+  padding: 10px;
+  border: 1px solid var(--couleur-orange);
+  border-radius: 10px;
+}
+
+.morph-menu a:hover{
+  background-color: var(--couleur-orange-darker);
+  border: 1px solid var(--couleur-orange-darker);
+}
+
+
+/* Footer */
+.footer {
+  font-size: 0.8em;
+  padding: 10px 20px;
+  background-color: var(--couleur-gris-clair);
+  color: var(--couleur-orange);
+  text-align: center; 
+}
+
+.footer a {
+  color: var(--couleur-orange);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Presentation */
+
+.contenu-Pre{
+width: 80%;
+margin: auto;
+}
+
+#animation { 
+position: relative; 
+width: 100%; 
+height: 500px; 
+display: block; 
+margin: auto; 
+}
+
+
+.slider-Pre{
+position: absolute; 
+bottom: 20px; 
+left: 10%; 
+transform: translateX(-50%); 
+justify-content: center;
+gap: 20px; 
+width: auto; 
+padding: 10px;
+background: rgba(0, 0, 0, 0.5); 
+border-radius: 5px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+color: white;
+}
+
+canvas { width: 100%; height: 100% }
+
+.slider-speed {
+position: absolute;
+right: 10px; /* Positionné à droite */
+bottom: 10px; /* Positionné en bas */
+color: white; /* Couleur du texte et des éléments du slider */
+}
+
+.slider-speed p {
+margin: 0; /* Élimine les marges par défaut pour aligner le texte plus étroitement avec le slider */
+font-size: 0.8em; /* Ajuste la taille de la police pour s'adapter au style général */
+}
