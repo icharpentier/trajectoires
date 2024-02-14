@@ -1,0 +1,166 @@
+{
+  "presentations": {
+      "Deming": {
+      "id": "1",
+      "title": "Présentation de Deming",
+      "jsFilePath": "./js/deming.js",
+      "description": [
+        {
+          "type": "text",
+          "content": "Voici une description du Deming."
+        },
+        {
+          "type": "text",
+          "content": "Un autre paragraphe."
+        },
+        {
+          "type": "image",
+          "src": "url.jpg",
+          "alt": "Description de l'image"
+        },
+        {
+          "type": "text",
+          "content": "Encore un autre paragraphe."
+        }
+      ],
+      "initFunction": "initDemingPre",
+      "sliders": true,
+      "morph": false
+    },
+    "Holling": {
+      "id": "2",
+      "title": "Présentation de Holling",
+      "jsFilePath": "./js/holling.js",
+      "description": [
+        {
+          "type": "text",
+          "content": "Voici une description du Deming."
+        },
+        {
+          "type": "text",
+          "content": "Un autre paragraphe."
+        },
+        {
+          "type": "image",
+          "src": "url.jpg",
+          "alt": "Description de l'image"
+        },
+        {
+          "type": "text",
+          "content": "Encore un autre paragraphe."
+        }
+      ],
+      "initFunction": "initHollingPre",
+      "sliders": true,
+      "morph": false
+    },
+    "Lorenz": {
+      "id": "3",
+      "title": "Présentation de Lorenz",
+      "jsFilePath": "./js/lorenz.js",
+      "description": [
+        {
+          "type": "text",
+          "content": "Voici une description du Deming."
+        },
+        {
+          "type": "text",
+          "content": "Un autre paragraphe."
+        },
+        {
+          "type": "image",
+          "src": "url.jpg",
+          "alt": "Description de l'image"
+        },
+        {
+          "type": "text",
+          "content": "Encore un autre paragraphe."
+        }
+      ],
+      "initFunction": "initLorenzPre",
+      "sliders": false,
+      "morph": false
+    },
+    "Lotka-Volterra": {
+      "id": "4",
+      "title": "Présentation de Lotka-Volterra",
+      "jsFilePath": "./js/lotka.js",
+      "description": [
+        {
+          "type": "text",
+          "content": "Voici une description du Deming."
+        },
+        {
+          "type": "text",
+          "content": "Un autre paragraphe."
+        },
+        {
+          "type": "image",
+          "src": "url.jpg",
+          "alt": "Description de l'image"
+        },
+        {
+          "type": "text",
+          "content": "Encore un autre paragraphe."
+        }
+      ],
+      "initFunction": "initLotkaPre",
+      "sliders": false,
+      "morph": false
+    },
+    "Morphisme1": {
+      "id": "5",
+      "title": "Présentation du Morphisme 1",
+      "jsFilePath": "./js/morphisme1.js",
+      "description": [
+        {
+          "type": "text",
+          "content": "Voici une description du Deming."
+        },
+        {
+          "type": "text",
+          "content": "Un autre paragraphe."
+        },
+        {
+          "type": "image",
+          "src": "url.jpg",
+          "alt": "Description de l'image"
+        },
+        {
+          "type": "text",
+          "content": "Encore un autre paragraphe."
+        }
+      ],
+      "initFunction": "initMorph1Pre",
+      "sliders": false,
+      "morph": true
+    },
+    "Morphisme2": {
+      "id": "6",
+      "title": "Présentation du Morphisme 2",
+      "jsFilePath": "./js/morphisme2.js",
+      "description": [
+        {
+          "type": "text",
+          "content": "Voici une description du Deming."
+        },
+        {
+          "type": "text",
+          "content": "Un autre paragraphe."
+        },
+        {
+          "type": "image",
+          "src": "url.jpg",
+          "alt": "Description de l'image"
+        },
+        {
+          "type": "text",
+          "content": "Encore un autre paragraphe."
+        }
+      ],
+      "initFunction": "initMorph2Pre",
+      "sliders": false,
+      "morph": true
+    }
+  }
+}
