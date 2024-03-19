@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3Trajectoires et Cycle de Deming</t00000000000000000000000000000000000itle>
+  <style>
+    body { margin: 0; font-family: "Helvetica", sans-serif;background-color:#FFFFFF}
+    canvas { width: 100%; height: 100% }
+  </style>
+</head>
+<body>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script>
+    // JavaScript code for 3D line plot animation using Three.js
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
+    
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const points = []; // Array to hold points for the line plot
+
+
+    // Creating 2 sine lines
+    r = 0.4;
+    for (let i = 0; i < 100; i++) {
+      points.push(new THREE.Vector3((r * Math.cos(i*2*Math.PI/50)), (r * Math.sin(i*2*Math.PI/50)), i/100));
+    }
+
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const material = new THREE.LineBasicMaterial({ color: 0xffffff });
+    const line = new THREE.Line(geometry, material);
+    scene.add(line);
+    
+    const axesHelper = new THREE.AxesHelper(1);
+    scene.add(axesHelper);
+   
+
+    camera.position.z = 4;
+
+    // Animation function
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Rotating the line
+      line.rotation.x += 0.01;
+      line.rotation.y += 0.005;
+      
+    // Rotate the axes (optional)
+    axesHelper.rotation.x += 0.01;
+    axesHelper.rotation.y += 0.005;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+  
+<h4>Roue de Deming <br>
+  Lorsque deux variables décrivent des sinusoides déphasées de 90°, la trajectoire du système décrit le mouvement de la roue adaptative proposé par Deming pour illustrer le processus (Plan-Do-Check-Act) d'amélioration continue des procédés industriels. </h4>
+</body>
+</html>
+
